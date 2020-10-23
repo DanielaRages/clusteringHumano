@@ -1,0 +1,62 @@
+  Ideas para el TP de Árbol Generador Mínimo
+-----------------------------------------------------------------------
+1- Crear una clase llamada “Vértice”. 
+   En ella, se pueden guardar el nombre de la persona y 
+   sus intereses (deportes, música, espectáculo y ciencia).
+
+2- Hacer que el método AgregarArista(i,j) devuelva un entero. 
+   El entero que devuelve seria la similaridad entre cada vértice y 
+   lo guardamos en un hashSet que tenga el vértice como código y 
+   una lista de tupla(vértice y valor de similiradad).
+
+3- La clase “Grafo” puede tener como variables el vértice y un 
+   hashMap(vértice,hashMap(vértice,relación(que puede ser la Similaridad))).
+
+4- El método eliminarAristaMayorPeso() recorre las listas de cada 
+   vértice y busca la similiridad de mayor peso.
+   
+5- Si el Grafo está compuesto por 1 vértice, tiene que graficar ese 
+   solo sin hacer cálculos.
+   
+6- Si el Grafo está compuesto por 2 vértices, tiene que graficar 
+   dos vértices sin calcular la similitud entre estos.
+   
+7- Los vértices pueden ser números pero a la hora de graficar, se pueden 
+   poner las iniciales de la persona para visualizar mejor a quien 
+   pertenece cada vértice. Para ello, se puede usar la función 
+   Vertice.getNombre.charAt(0) para tener la letra. 
+   En caso de tener dos repetidos, se podría agregar la segunda 
+   letra del nombre o desde el inicio usar las 2 primeras letras 
+   del nombre.  
+-----------------------------------------------------------------------
+1- Opino que es más conveniente llamar esa clase "Persona", porque de esta manera
+   es más referente al contenido que posee dentro. 
+   Ahi dentro ya tendria que tener el método que calcule el indice de similaridad.
+   (Es más, el profe en la clase pasada dijo que estaría bueno que lo hagan asi).
+   Ojo, no quiere decir que no tenga que haber una clase Vertice, creo que sería
+   conveniente tener una.
+   
+2- Se me ocurrió que AgregarArista(i,j) sea void, donde adentro de ella se llame 
+   al metodo que calcula el indice (que está en la clase Persona) y luego solo agregue dicho 
+   valor a la arista. 
+   Concuerdo con lo del hashset. 
+   
+3 - "hashMap(vértice,hashMap(vértice,relación(que puede ser la Similaridad)))."
+	Cuando te referis a relacion te referis al hashSet asociado a dicho vertice? 
+	Sino en qué momento estaría utilizandose el hashset?
+
+4- Primero se aplica el Algoritmo de Prim para obtener el arbol generador
+   minimo y luego se elimina la arista de mayor peso (utilizando BFS?)
+
+5- Concuerdo. 
+
+6- Pero que pasa si efectivamente tienen un indice de similaridad alto?
+   Por logica acaso no deberian estar unidos? Además de que romperia 
+   con la definicion de grafo (o en este caso componente) conexo: 
+   que entre 2 vertices haya una arista que los una. 
+   Si tienen nulo indice de similaridad ahi si tienen que estar separados.
+   
+7- Concuerdo con lo de graficar los vertices con las iniciales de las personas. 
+   No me convence lo de utilizar la 2da letra en casos de nombres repetidos pero
+   no se me ocurre que otro identificatorio agregarle (agregarle un apellido seria
+   demasiado, no?).
