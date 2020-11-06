@@ -1,6 +1,6 @@
   Ideas para el TP de Árbol Generador Mínimo
 -----------------------------------------------------------------------
-1- Crear una clase llamada “Vértice”. 
+1- Crear una clase llamada “Persona”. 
    En ella, se pueden guardar el nombre de la persona y 
    sus intereses (deportes, música, espectáculo y ciencia).
 
