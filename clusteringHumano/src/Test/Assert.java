@@ -14,4 +14,6 @@ public class Assert
 		for (int elem: esperado)
 			assertTrue(alcanzables.contains(elem));
 	}
+	
+
 }

@@ -2,6 +2,7 @@ package Logica;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -11,6 +12,7 @@ public class Grafo
 	private ArrayList<Persona> listaVertices;
 	private ArrayList<Arista> aristas;
 	private int vertices;
+	private Arista aristaEliminar;
 	
 	
 	public Grafo(int cantP) 
@@ -18,6 +20,7 @@ public class Grafo
 		this.listaVertices = new ArrayList<>(cantP);
 		this.aristas = new ArrayList<>();
 		this.vertices = cantP;
+		
 		
 	}
 	
@@ -45,9 +48,9 @@ public class Grafo
 	public void agregarArista(Persona p1,Persona p2) 
 	{
 		if(!listaVertices.contains(p1))
-			throw new IllegalArgumentException("No esta en la lista: " + p1.getNombre());
+			throw new IllegalArgumentException("No esta en la lista1: " + p1.getNombre());
 		if(!listaVertices.contains(p2))
-			throw new IllegalArgumentException("No esta en la lista: " + p2.getNombre());
+			throw new IllegalArgumentException("No esta en la lista2: " + p2.getNombre());
 		
 		agregarAristaLista(new Arista(p1,p2));
 	}
@@ -115,7 +118,7 @@ public class Grafo
 	public void eliminarAristaMax() 
 	{
 		int aristaMax = 0;
-		Arista aristaEliminar = null;
+		aristaEliminar = null;
 		for (int i = 0; i < aristas.size(); i++) {
 			if(aristas.get(i).getPeso()>aristaMax) 
 			{
@@ -123,8 +126,9 @@ public class Grafo
 				aristaEliminar = aristas.get(i);
 			}
 			
-		}
-		eliminarArista(aristaEliminar);
+		} 
+		eliminarArista(aristaEliminar.getPersona1(),aristaEliminar.getPersona2());
+		
 		
 	}
 	
@@ -145,17 +149,32 @@ public class Grafo
 	
 	public int posPersona(Persona p) 
 	{
-		int cont = 0;
-		while(!p.equals(listaVertices.get(cont))) 
-		{
-			cont++;
-		}
-		return cont;
+		return listaVertices.indexOf(p);
 	}
 	
 	public int getVertices() 
 	{
 		return vertices;
+	}
+	
+	public Arista getAristaEliminar() 
+	{
+		return aristaEliminar;
+	}
+	
+	public boolean AristasIguales(Arista a1,Arista a2) 
+	{
+		if((a1.getPersona1().equals(a2.getPersona1())) || 
+			a1.getPersona1().equals(a2.getPersona2()) && 
+			(a1.getPersona2().equals(a2.getPersona1())) ||
+			a1.getPersona2().equals(a2.getPersona2())) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
 	}
 	
 	
