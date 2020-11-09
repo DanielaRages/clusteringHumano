@@ -13,7 +13,6 @@ import Logica.Persona;
 
 public class BFSTest 
 
-
 {
 	@Test (expected=IllegalArgumentException.class)
 	public void testNull() 

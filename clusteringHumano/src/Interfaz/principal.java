@@ -20,7 +20,6 @@ public class principal {
 	private JTextField cantidadPersonas;
 	private cargaDePersonas carga = new cargaDePersonas();
 
-
 	/**
 	 * Launch the application.
 	 */
@@ -90,7 +89,7 @@ public class principal {
 	public boolean validarInputCantidadPersonas() { 
 
 		if (cantidadPersonas.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "No tiene que estar vacio");		
+			JOptionPane.showMessageDialog(null, "No debe de estar vacío.");		
 			return false;	
 		}
 	
@@ -100,20 +99,19 @@ public class principal {
 				Integer.parseInt(cantidadPersonas.getText());
 			}
 			catch (NumberFormatException excepcion){
-				JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+				JOptionPane.showMessageDialog(null, "Ingrese solo números");
 				cantidadPersonas.setText(null);
 				return false;
 			}
 			
 			int cant = Integer.parseInt(cantidadPersonas.getText());
 			if (cant <=1) {
-				JOptionPane.showMessageDialog(null, "La cantidad de personas tiene que ser mayor a 2");
+				JOptionPane.showMessageDialog(null, "La cantidad de personas debe de ser mayor a 2");
 				return false;
 			}
 		}
 		
-		return true;
-		
+		return true;	
 	}
 
 	public int getCantidadPersonas() {
