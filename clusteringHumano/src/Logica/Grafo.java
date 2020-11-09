@@ -23,30 +23,46 @@ public class Grafo
 	
 	public void agregarPersona(Persona p) 
 	{
-		listaVertices.add(p);
+		if(listaVertices.size()!=vertices)
+			listaVertices.add(p);
+		else
+			throw new IllegalArgumentException("No puede agregar mas personas");
 	}
 	
 	public void GenerarGrafo() 
 	{
 		for (int i = 0; i < listaVertices.size(); i++) {
 			for (int j = 0; j < listaVertices.size(); j++) {
-				agregarArista(listaVertices.get(i), listaVertices.get(j));
+				if(!listaVertices.get(i).equals(listaVertices.get(j))) 
+				{
+					agregarArista(listaVertices.get(i), listaVertices.get(j));
+				}
+		
 			}
 		}
 	}
 	
 	public void agregarArista(Persona p1,Persona p2) 
 	{
+		if(!listaVertices.contains(p1))
+			throw new IllegalArgumentException("No esta en la lista: " + p1.getNombre());
+		if(!listaVertices.contains(p2))
+			throw new IllegalArgumentException("No esta en la lista: " + p2.getNombre());
+		
 		agregarAristaLista(new Arista(p1,p2));
 	}
 	
 
     private void agregarAristaLista(Arista a) 
     {
-    	if(!(a.getPersona1().equals(a.getPersona2()))) 
-    	{
-    		aristas.add(a);    		
-    	}
+    	if(a.getPersona1().equals(a.getPersona2()))
+			throw new IllegalArgumentException("No se permite Loop con: " + a.getPersona1().getNombre());
+		if(a.getPersona2().equals(a.getPersona1()))
+			throw new IllegalArgumentException("No se permite Loop con: " + a.getPersona2().getNombre());
+    		
+		aristas.add(a);    		
+    	
+    	
     }
 	
 	public void eliminarArista (Persona p1, Persona p2) 
@@ -55,6 +71,13 @@ public class Grafo
 		{
 			eliminarArista(new Arista(p1,p2));
 			eliminarArista(new Arista(p2,p1));
+		}
+		else 
+		{
+			if(!listaVertices.contains(p1))
+				throw new IllegalArgumentException("No esta en la lista: " + p1.getNombre());
+			if(!listaVertices.contains(p2))
+				throw new IllegalArgumentException("No esta en la lista: " + p2.getNombre());
 		}
     }
 	
@@ -69,8 +92,13 @@ public class Grafo
     	}
     }
 	
-	public boolean existeArista (Persona n , Persona m) { 
-        return existeArista(new Arista(n,m));
+	public boolean existeArista (Persona p1 , Persona p2) { 
+		if(!listaVertices.contains(p1))
+			throw new IllegalArgumentException("No esta en la lista: " + p1.getNombre());
+		if(!listaVertices.contains(p2))
+			throw new IllegalArgumentException("No esta en la lista: " + p2.getNombre());
+		
+		return existeArista(new Arista(p1,p2));
     }
 	
 	private boolean existeArista (Arista a) {
