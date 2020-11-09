@@ -1,33 +1,37 @@
 package Logica;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 
 public class Grafo 
 {
 	
-	private ArrayList<Persona> vertices;
+	private ArrayList<Persona> listaVertices;
 	private ArrayList<Arista> aristas;
+	private int vertices;
 	
 	
 	public Grafo(int cantP) 
 	{
-		this.vertices = new ArrayList<>(cantP);
+		this.listaVertices = new ArrayList<>(cantP);
 		this.aristas = new ArrayList<>();
+		this.vertices = cantP;
 		
 	}
 	
 	public void agregarPersona(Persona p) 
 	{
-		vertices.add(p);
+		listaVertices.add(p);
 	}
 	
 	public void GenerarGrafo() 
 	{
-		for (int i = 0; i < vertices.size(); i++) {
-			for (int j = 0; j < vertices.size(); j++) {
-				agregarArista(vertices.get(i), vertices.get(j));
+		for (int i = 0; i < listaVertices.size(); i++) {
+			for (int j = 0; j < listaVertices.size(); j++) {
+				agregarArista(listaVertices.get(i), listaVertices.get(j));
 			}
 		}
 	}
@@ -99,19 +103,51 @@ public class Grafo
 	
 	public int tamanio() 
 	{
-		return vertices.size();
+		return listaVertices.size();
 	}
 	
 	
 
-	public ArrayList<Persona> getVertices() {
-		return vertices;
+	public ArrayList<Persona> getListaVertices() {
+		return listaVertices;
 	}
 
 	public ArrayList<Arista> getAristas() {
 		return aristas;
 	}
 	
+	public int posPersona(Persona p) 
+	{
+		int cont = 0;
+		while(!p.equals(listaVertices.get(cont))) 
+		{
+			cont++;
+		}
+		return cont;
+	}
+	
+	public int getVertices() 
+	{
+		return vertices;
+	}
+	
+	
+	public Set<Integer> vecinos(int v)
+	{
+		Set<Integer> ret = new HashSet<Integer>();
+		for (int i = 0; i < aristas.size(); i++) {
+			if(aristas.get(i).getPersona1().equals(listaVertices.get(v)))
+			{ 
+				ret.add(posPersona(aristas.get(i).getPersona2()));					
+			}
+			if(aristas.get(i).getPersona2().equals(listaVertices.get(v)))
+			{
+				ret.add(posPersona(aristas.get(i).getPersona1()));
+									 
+			}
+		}
+		return ret;
+	}
 
 
 	

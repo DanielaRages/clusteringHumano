@@ -39,7 +39,7 @@ public class Persona {
 			   }
 	    	Persona otro = (Persona) obj;
 	    	
-	    	if		(this.getNombre() == otro.getNombre() &&
+	    	if		(this.getNombre().equals(otro.getNombre()) &&
 	    			this.getDeportes() == otro.getDeportes() &&
 	    			this.getMusica() == otro.getMusica() &&
 	    			this.getEspectaculo() == otro.getEspectaculo() &&
