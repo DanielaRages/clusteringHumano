@@ -23,6 +23,7 @@ public class Prim {
 		while(i < g.tamanio()-1 ) 
 		{
 			Arista aristaNueva = aristasMenorPeso(g);
+			//vertices.add(aristaNueva.getPersona2());
 			grafoNuevo.agregarArista(aristaNueva.getPersona1(), aristaNueva.getPersona2());
 			vertices.add(aristaNueva.getPersona2());
 			

@@ -9,6 +9,9 @@ public class Persona {
 	
 	public Persona(String n, int d,int m, int e,int c) 
 	{
+	   if(n.isBlank() || n.length() < 2) {
+	        throw new IllegalArgumentException ("Debe asignar el nombre y apellido de la persona."); } 
+	    else { this.nombre = n; }
 		this.nombre = n;
 		this.deportes = d;
 		this.musica = m;
