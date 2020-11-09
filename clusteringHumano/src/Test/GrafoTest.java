@@ -74,6 +74,14 @@ public class GrafoTest {
 	
 	
 	@Test
+	public void agregarPersonaTest()
+	{
+		Grafo grafo = new Grafo(5);
+		grafo.agregarPersona(p1);
+		assertTrue( grafo.getListaVertices().contains(p1));
+	}
+	
+	@Test
 	public void aristaInexistenteTest()
 	{
 		Grafo grafo = new Grafo(5);
