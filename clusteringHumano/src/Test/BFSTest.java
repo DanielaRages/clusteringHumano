@@ -1,29 +1,70 @@
 package Test;
 
 
+import static org.junit.Assert.*;
+
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import Logica.BFS;
 import Logica.Grafo;
 import Logica.Persona;
 
-public class BFSTest {
+public class BFSTest 
 
+
+{
+	@Test (expected=IllegalArgumentException.class)
+	public void testNull() 
+	{
+		BFS.esConexo(null);
+	}
 	
+	@Test
+	public void testVacio()
+	{
+		Grafo g = new Grafo(0);
+		assertTrue(BFS.esConexo(g));
+	}
+	
+	@Test
+	public void testNoConexo()
+	{
+		Grafo g = inicializarEjemplo();
+		assertFalse(BFS.esConexo(g));
+	}
+
+	@Test
+	public void testConexo()
+	{
+		Grafo g = inicializarEjemplo();
+		g.agregarArista(g.getListaVertices().get(3),g.getListaVertices().get(4));
+		assertTrue(BFS.esConexo(g));
+	}
 	
 	@Test
 	public void alcanzablesTest()
 	{
 		Grafo g = inicializarEjemplo();
-		Set<Integer> alcanzables = BFS.alcanzables(g, 2);
-		int[] esperado = {2,3,4};
+		Set<Integer> alcanzables = BFS.alcanzables(g, 0);
 		
+		int[] esperado = {0, 1, 2, 3};
 		Assert.iguales(esperado, alcanzables);
 	}
-
-
+	
+	@Test
+	public void alcanzablesTodosTest()
+	{
+		Grafo g = inicializarEjemplo();
+		g.agregarArista(g.getListaVertices().get(3),g.getListaVertices().get(4));
+		
+		Set<Integer> alcanzables = BFS.alcanzables(g, 0);
+		
+		int[] esperado = {0, 1, 2, 3, 4};
+		Assert.iguales(esperado, alcanzables);
+	}
+	
 	private Grafo inicializarEjemplo() 
 	{
 		Persona p1 = new Persona("Lean",5,4,2,4);
@@ -38,9 +79,10 @@ public class BFSTest {
 		g.agregarPersona(p4);
 		g.agregarPersona(p5);
 		g.agregarArista(p1, p2);
-		g.agregarArista(p4, p5);
+		g.agregarArista(p1, p3);
 		g.agregarArista(p3, p4);
 		return g;
 	}
+
 
 }
