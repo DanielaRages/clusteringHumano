@@ -38,7 +38,7 @@ public class Prim {
 	
 	public Grafo ArmarArbol(ArrayList<Arista> lista) 
 	{
-		for (int i = 0; i < grafoNuevo.getVertices(); i++) {
+		for (int i = 0; i < grafoNuevo.getCantidadVertices(); i++) {
 			grafoNuevo.agregarPersona(vertices.get(i));
 		}
 		for (int i = 0; i < lista.size(); i++) {

@@ -20,8 +20,7 @@ public class Grafo
 		this.listaVertices = new ArrayList<>(cantP);
 		this.aristas = new ArrayList<>();
 		this.vertices = cantP;
-		
-		
+			
 	}
 	
 	public void agregarPersona(Persona p) 
@@ -152,7 +151,7 @@ public class Grafo
 		return listaVertices.indexOf(p);
 	}
 	
-	public int getVertices() 
+	public int getCantidadVertices() 
 	{
 		return vertices;
 	}

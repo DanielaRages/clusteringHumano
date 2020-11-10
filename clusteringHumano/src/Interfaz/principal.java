@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Logica.Grafo;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -18,7 +21,8 @@ public class principal {
 
 	private JFrame frame;
 	private JTextField cantidadPersonas;
-	private cargaDePersonas carga = new cargaDePersonas();
+	private cargaDePersonas carga;
+	static Grafo grafo; 
 
 	/**
 	 * Launch the application.
@@ -48,7 +52,9 @@ public class principal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
+		
 		frame.setBounds(680, 250, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -75,6 +81,8 @@ public class principal {
 			@Override
 			public void mouseClicked(MouseEvent e) {		
 				if(validarInputCantidadPersonas()) {
+					grafo = new Grafo(getCantidadPersonas()); //le asigna la cantidad de personas
+					carga = new cargaDePersonas(grafo); 
 					carga.setVisible(true);
 					frame.setVisible(false);
 				}
@@ -90,22 +98,19 @@ public class principal {
 
 		if (cantidadPersonas.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "No debe de estar vacío.");		
-			return false;	
-		}
+			return false;}
 	
-		else { //ESTO VA A DEPENDER SI DEJAMOS QUE SEA MAYOR A 2 O QUE PONGA 1
+		else {
 			
 			try {
-				Integer.parseInt(cantidadPersonas.getText());
-			}
+				Integer.parseInt(cantidadPersonas.getText()); }
 			catch (NumberFormatException excepcion){
 				JOptionPane.showMessageDialog(null, "Ingrese solo números");
 				cantidadPersonas.setText(null);
-				return false;
-			}
+				return false; }
 			
 			int cant = Integer.parseInt(cantidadPersonas.getText());
-			if (cant <=1) {
+			if (cant <= 2 ) {
 				JOptionPane.showMessageDialog(null, "La cantidad de personas debe de ser mayor a 2");
 				return false;
 			}

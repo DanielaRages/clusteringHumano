@@ -7,9 +7,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Logica.BFS;
+import Logica.Grafo;
+import Logica.Persona;
+import Logica.Prim;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Set;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
@@ -17,32 +25,48 @@ import javax.swing.JEditorPane;
 import java.awt.Color;
 import javax.swing.JTable;
 
+@SuppressWarnings("serial")
 public class gruposFormados extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tablaGrupo1;
 	private JTable tablaGrupo2;
+	private ArrayList<Persona> grupo1;
+	private ArrayList<Persona> grupo2;
+	Prim arbolG;
+	Grafo nuevoGrafo;
+	BFS bfs;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gruposFormados frame = new gruposFormados();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					gruposFormados frame = new gruposFormados(grafo);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public gruposFormados() {
+	public gruposFormados(Grafo grafo) {
+		
+		//Se genera Arbol Generador Minimo
+		
+		bfs = new BFS();
+		arbolG = new Prim(grafo);	
+		nuevoGrafo = arbolG.ArmarArbol(arbolG.ListaAristas(grafo));
+		nuevoGrafo.eliminarAristaMax();
+		
+//----------------------------------------------------------------------------------------------------
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(680, 250, 600, 500);
 		contentPane = new JPanel();

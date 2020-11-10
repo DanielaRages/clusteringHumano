@@ -3,7 +3,12 @@ package Interfaz;
 //ANOTACIONES:
 //CUANDO LOS DATOS LOS GUARDOS EN UNA TABLA, TENGO QUE IMPLEMENTAR TMB QUE ALMACENE ESO EN LA PARTE LOGICA (QUE CREE LA PERSONA)
 //CUANDO DE CLICK EN GUARDAR QUE RESETEE LOS DATOS --- ya está
-//HACER CONTADOR, CUANDO LLEGUE A LA CANTIDAD GUARDADA DESEADA, DESHABILITAR EL BOTON
+//HACER CONTADOR, CUANDO LLEGUE A LA CANTIDAD GUARDADA DESEADA, DESHABILITAR EL BOTON Y HABILITAR VER GRAFO
+//		ARREGLAR ESTO
+
+import Logica.Grafo;
+import Logica.Persona;
+
 
 import java.lang.Object;
 import java.awt.EventQueue;
@@ -14,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -34,7 +40,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 
-//@SuppressWarnings("serial")
+
+
+@SuppressWarnings("serial")
 public class cargaDePersonas extends JFrame {
 
 	private JPanel contentPane;
@@ -43,35 +51,40 @@ public class cargaDePersonas extends JFrame {
 	JComboBox <String>comboBoxMusica = new JComboBox<String>();
 	JComboBox <String>comboBoxEspectaculo = new JComboBox<String>();
 	JComboBox <String>comboBoxCiencia = new JComboBox<String>();
+	JButton btnGenerarGrafo = new JButton("Generar Grafo");
+	JButton btnGuardar = new JButton("Guardar"); 
 	String [] opciones;
 	Object [] datosFilas;
-	String nombrePersona;
+	String nombre;
 	int deporte;
 	int musica;
 	int espectaculo;
 	int ciencia;
 	private JTable table;
+	int contador;
+	private gruposFormados gruposFormados;
+	//static Grafo grafo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					cargaDePersonas frame = new cargaDePersonas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					cargaDePersonas frame = new cargaDePersonas(grafo);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public cargaDePersonas() {
+	public cargaDePersonas(Grafo grafo) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 1050, 500); //ver despues de centrarlo bien
 		contentPane = new JPanel();
@@ -135,9 +148,20 @@ public class cargaDePersonas extends JFrame {
 		contentPane.add(comboBoxCiencia);
 		//comboBoxCiencia.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"})); 
 	
-		JButton btnNewButton_2 = new JButton("Ver grafo");
-		btnNewButton_2.setBounds(704, 381, 96, 23);
-		contentPane.add(btnNewButton_2);
+		
+		//JButton btnGenerarGrafo = new JButton("Generar Grafo");
+		btnGenerarGrafo.setBounds(704, 381, 96, 23);
+		btnGenerarGrafo.setVisible(false);
+		contentPane.add(btnGenerarGrafo);
+		//añadirle el enganche con gruposFormados;
+		btnGenerarGrafo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			//	gruposFormados = new gruposFormados(grafo);
+			}
+		});
+		
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(516, 49, 474, 292);
@@ -159,8 +183,8 @@ public class cargaDePersonas extends JFrame {
 		table.setModel(modelo);
       
 
-		JButton btnNewButton = new JButton("Guardar");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		//JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (textFieldNombre.getText().equals("")){
@@ -169,27 +193,35 @@ public class cargaDePersonas extends JFrame {
 				else if (esDigito(textFieldNombre.getText())){
 					JOptionPane.showMessageDialog(null, "No debe de contener números."); }	
 				else { 
-					guardarDatos();	
-					cargarTabla(table, modelo);
-					limpiarDatos();
-				}	
-			}
+					contador++;
+					if (contador <= grafo.getCantidadVertices()) {			
+						guardarDatos();
+						cargaPersonasAGrafo(modelo, grafo, btnGuardar, btnGenerarGrafo);	
+					}
+					else {
+						btnGuardar.setVisible(false);
+						btnGenerarGrafo.setVisible(true);						
+						}
+				}
+				grafo.GenerarGrafo();
+		}
 		});
-		btnNewButton.setBounds(220, 381, 89, 23);
-		contentPane.add(btnNewButton);
+		
+		btnGuardar.setBounds(220, 381, 89, 23);
+		contentPane.add(btnGuardar);
 		}
 
-
 		private void guardarDatos() {//guarda los datos para crear el objeto Persona, porque son todos int
-			nombrePersona = textFieldNombre.getText();
+			nombre = textFieldNombre.getText();
 			deporte = Integer.parseInt((String)comboBoxDeportes.getSelectedItem());
 			musica = Integer.parseInt((String)comboBoxMusica.getSelectedItem());
 			espectaculo = Integer.parseInt((String)comboBoxEspectaculo.getSelectedItem());
 			ciencia = Integer.parseInt((String)comboBoxCiencia.getSelectedItem());
-			System.out.println(nombrePersona);
+			System.out.println(nombre);
 			System.out.println(deporte); 	
 		}
 
+		
 		private void cargarTabla(JTable tabla, DefaultTableModel modelo) {
 			
 			datosFilas = new Object[5]; 
@@ -207,8 +239,9 @@ public class cargaDePersonas extends JFrame {
 			comboBoxDeportes.setSelectedIndex(0);
 			comboBoxMusica.setSelectedIndex(0);
 			comboBoxEspectaculo.setSelectedIndex(0);
-			comboBoxCiencia.setSelectedIndex(0);
+			comboBoxCiencia.setSelectedIndex(0);		
 		}
+		
 		
 		private static boolean esDigito(String str) { //si da true significa que hay al menos un numero en el string
 			for (int i = 0; i < str.length(); i++) {
@@ -218,6 +251,16 @@ public class cargaDePersonas extends JFrame {
 	   }
 		return false;
 	}
+		
+		private void cargaPersonasAGrafo(DefaultTableModel modelo, Grafo grafo, JButton guardar, JButton btnGenerarGrafo) {
+				Persona p = new Persona(nombre, deporte, musica, espectaculo, ciencia); 	
+				grafo.agregarPersona(p);
+				cargarTabla(table, modelo);
+				limpiarDatos();
+
+		//	guardar.setVisible(false);
+		//	btnGenerarGrafo.setVisible(true);
+		}
 		
 	
 }

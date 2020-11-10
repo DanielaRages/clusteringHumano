@@ -14,10 +14,10 @@ public class BFS
 		if (g==null)
 			throw new IllegalArgumentException("Se intento consultar con un grafo null!" );
 		
-		if (g.getVertices() == 0)
+		if (g.getCantidadVertices() == 0)
 			return true;
 		
-		return alcanzables(g, 0).size() == g.getVertices();
+		return alcanzables(g, 0).size() == g.getCantidadVertices();
 	}
 
 	public static Set<Integer> alcanzables(Grafo g, int origen)
@@ -43,7 +43,7 @@ public class BFS
 	{
 		L = new ArrayList<Integer>();	
 		L.add(origen);
-		marcados = new boolean[g.getVertices()];
+		marcados = new boolean[g.getCantidadVertices()];
 	}
 
 	private static void agregarVecinosPendientes(Grafo g, int i) 
