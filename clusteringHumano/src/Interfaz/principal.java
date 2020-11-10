@@ -16,6 +16,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class principal {
 
@@ -62,21 +64,26 @@ public class principal {
 		JLabel lblNewLabel = new JLabel("CLUSTERING HUMANO");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 28));
-		lblNewLabel.setBounds(116, 47, 350, 57);
+		lblNewLabel.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 32));
+		lblNewLabel.setBounds(115, 63, 350, 57);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Ingrese la cantidad de personas a cargar: ");
+		JLabel lblNewLabel_1 = new JLabel("Ingrese la cantidad de personas a cargar");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(55, 199, 297, 70);
+		lblNewLabel_1.setBounds(171, 107, 273, 165);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		cantidadPersonas = new JTextField();
-		cantidadPersonas.setBounds(380, 221, 86, 20);
+		cantidadPersonas.setHorizontalAlignment(SwingConstants.CENTER);
+		cantidadPersonas.setBounds(246, 235, 86, 20);
 		frame.getContentPane().add(cantidadPersonas);
 		cantidadPersonas.setColumns(10);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {		
@@ -99,9 +106,7 @@ public class principal {
 		if (cantidadPersonas.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "No debe de estar vacío.");		
 			return false;}
-	
-		else {
-			
+		else {		
 			try {
 				Integer.parseInt(cantidadPersonas.getText()); }
 			catch (NumberFormatException excepcion){
@@ -111,7 +116,7 @@ public class principal {
 			
 			int cant = Integer.parseInt(cantidadPersonas.getText());
 			if (cant <= 2 ) {
-				JOptionPane.showMessageDialog(null, "La cantidad de personas debe de ser mayor a 2");
+				JOptionPane.showMessageDialog(null, "La cantidad de personas debe ser al menos 3.");
 				return false;
 			}
 		}

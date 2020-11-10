@@ -18,6 +18,7 @@ import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class gruposFormados extends JFrame {
@@ -48,17 +49,18 @@ public class gruposFormados extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("GRUPO 1");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(60, 16, 159, 41);
-		contentPane.add(lblNewLabel);
+		JLabel lblGrupo1 = new JLabel("GRUPO 1");
+		lblGrupo1.setBackground(SystemColor.control);
+		lblGrupo1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblGrupo1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupo1.setBounds(60, 16, 159, 41);
+		contentPane.add(lblGrupo1);
 		
-		JLabel lblGrupo = new JLabel("GRUPO 2");
-		lblGrupo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGrupo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGrupo.setBounds(345, 16, 159, 41);
-		contentPane.add(lblGrupo);
+		JLabel lblGrupo2 = new JLabel("GRUPO 2");
+		lblGrupo2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupo2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblGrupo2.setBounds(345, 16, 159, 41);
+		contentPane.add(lblGrupo2);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -72,14 +74,18 @@ public class gruposFormados extends JFrame {
 		contentPane.add(separator_1);
 		
 		JList<String> lista1 = new JList<String>(); //Lista para grupo 1
+		lista1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lista1.setBackground(UIManager.getColor("Button.background"));
 		lista1.setBounds(23, 95, 240, 344);
+		lista1.setFixedCellWidth(200);
 		contentPane.add(lista1);
 		lista1.setModel(modelList(ListaPersonas1));
 		
 		JList<String> lista2 = new JList<String>(); //Lista para grupo 2
+		lista2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lista2.setBackground(UIManager.getColor("Button.background"));
 		lista2.setBounds(308, 95, 266, 344);
+		lista2.setFixedCellWidth(200);
 		contentPane.add(lista2);
 		lista2.setModel(modelList(ListaPersonas2));
 	}
@@ -91,6 +97,4 @@ public class gruposFormados extends JFrame {
 		 }
 		 return model;
 	}
-	
-
 }

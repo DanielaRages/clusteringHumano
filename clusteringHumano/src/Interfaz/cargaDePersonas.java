@@ -64,27 +64,8 @@ public class cargaDePersonas extends JFrame {
 	private JTable table;
 	int contador;
 	private gruposFormados gruposFormados;
-	//static Grafo grafo;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					cargaDePersonas frame = new cargaDePersonas(grafo);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the frame.
-	 */
 	public cargaDePersonas(Grafo grafo) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 1050, 500); //ver despues de centrarlo bien
@@ -96,11 +77,11 @@ public class cargaDePersonas extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Ingrese nombre y apellido:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(38, 49, 167, 27);
+		lblNewLabel.setBounds(38, 56, 167, 27);
 		contentPane.add(lblNewLabel);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(220, 51, 247, 27);
+		textFieldNombre.setBounds(220, 58, 247, 27);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
@@ -129,7 +110,6 @@ public class cargaDePersonas extends JFrame {
 		lblNewLabel_2_1_2.setBounds(38, 318, 148, 27);
 		contentPane.add(lblNewLabel_2_1_2);
 		
-	
 		String [] opciones = new String[] {"1", "2", "3", "4", "5"};
 		comboBoxDeportes.setBounds(426, 171, 41, 22);
 		comboBoxDeportes.setModel(new DefaultComboBoxModel<String>(opciones));
@@ -143,22 +123,16 @@ public class cargaDePersonas extends JFrame {
 		comboBoxEspectaculo.setModel(new DefaultComboBoxModel<String>(opciones));
 		contentPane.add(comboBoxEspectaculo);
 		
-		//JComboBox<String> comboBoxCiencia = new JComboBox<String>();
 		comboBoxCiencia.setBounds(426, 318, 41, 22);
 		comboBoxCiencia.setModel(new DefaultComboBoxModel<String>(opciones));
 		contentPane.add(comboBoxCiencia);
-		//comboBoxCiencia.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"})); 
-	
 		
-		//JButton btnGenerarGrafo = new JButton("Generar Grafo");
-		btnGenerarGrafo.setBounds(704, 381, 96, 23);
+		btnGenerarGrafo.setBounds(699, 381, 135, 23);
 		btnGenerarGrafo.setVisible(false);
 		contentPane.add(btnGenerarGrafo);
-		//añadirle el enganche con gruposFormados;
 		btnGenerarGrafo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				grafo.GenerarGrafo();
 				Prim arbolG = new Prim(grafo);
 				Grafo nuevoGrafo = arbolG.ArmarArbol(arbolG.ListaAristas(grafo));
@@ -167,11 +141,10 @@ public class cargaDePersonas extends JFrame {
 				gruposFormados.setVisible(true);
 			}
 		});
-		
-		
+			
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(516, 49, 474, 292);
+		scrollPane.setBounds(498, 56, 514, 302);
 		contentPane.add(scrollPane);
 		
 		table = new JTable(); //-------------------- TABLA
@@ -189,41 +162,37 @@ public class cargaDePersonas extends JFrame {
 		
 		table.setModel(modelo);
       
-
-		//JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (textFieldNombre.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "El campo no debe estar vacío.");				
-					}	
-				else if (esDigito(textFieldNombre.getText())){
-					JOptionPane.showMessageDialog(null, "No debe de contener números."); }	
-				else { 
-					contador++;
-					if (contador <= grafo.getCantidadVertices()) {			
-						guardarDatos();
-						cargaPersonasAGrafo(modelo, grafo, btnGuardar, btnGenerarGrafo);	
-					}
-					else {
-						btnGuardar.setVisible(false);
-						btnGenerarGrafo.setVisible(true);						
-						}
-				}
-		}
-		});
-		
 		btnGuardar.setBounds(220, 381, 89, 23);
 		contentPane.add(btnGuardar);
-		}
 
-		private void guardarDatos() {//guarda los datos para crear el objeto Persona, porque son todos int
+		btnGuardar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textFieldNombre.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "El campo no debe estar vacío.");}
+                else if (textFieldNombre.getText().length() <= 2){
+                    JOptionPane.showMessageDialog(null, "Ingrese un nombre y apellido válidos. "); }
+                else if (esDigito(textFieldNombre.getText())){
+                    JOptionPane.showMessageDialog(null, "No debe de contener números."); }
+                else {
+                    guardarDatos();
+                    cargaPersonasAGrafo(modelo, grafo, btnGuardar, btnGenerarGrafo);
+                    if (contador == grafo.getCantidadVertices()) {
+                        btnGuardar.setVisible(false);
+                        btnGenerarGrafo.setVisible(true);
+                        textFieldNombre.setEditable(false);
+                    }
+                }
+            }
+        });
+	}
+
+		private void guardarDatos() {//guarda los datos para crear el objeto Persona
 			nombre = textFieldNombre.getText();
 			deporte = Integer.parseInt((String)comboBoxDeportes.getSelectedItem());
 			musica = Integer.parseInt((String)comboBoxMusica.getSelectedItem());
 			espectaculo = Integer.parseInt((String)comboBoxEspectaculo.getSelectedItem());
-			ciencia = Integer.parseInt((String)comboBoxCiencia.getSelectedItem());
-			 	
+			ciencia = Integer.parseInt((String)comboBoxCiencia.getSelectedItem());		 	
 		}
 
 		
@@ -246,9 +215,8 @@ public class cargaDePersonas extends JFrame {
 			comboBoxEspectaculo.setSelectedIndex(0);
 			comboBoxCiencia.setSelectedIndex(0);		
 		}
-		
-		
-		private static boolean esDigito(String str) { //si da true significa que hay al menos un numero en el string
+			
+		private static boolean esDigito(String str) { //true = hay al menos un numero en el string
 			for (int i = 0; i < str.length(); i++) {
 				char c = str.charAt(i);
 				if (Character.isDigit(c))
@@ -258,14 +226,17 @@ public class cargaDePersonas extends JFrame {
 	}
 		
 		private void cargaPersonasAGrafo(DefaultTableModel modelo, Grafo grafo, JButton guardar, JButton btnGenerarGrafo) {
-				Persona p = new Persona(nombre, deporte, musica, espectaculo, ciencia); 	
-				grafo.agregarPersona(p);
-				cargarTabla(modelo);
-				limpiarDatos();
+            Persona p = new Persona(nombre, deporte, musica, espectaculo, ciencia);
+            if (grafo.personaRepetida(p)){
+                JOptionPane.showMessageDialog(null, "No puede agregar personas con el mismo nombre y valores."); }
+            else {
+            grafo.agregarPersona(p);
+            cargarTabla(modelo);
+            limpiarDatos();
+            contador++;
+            }
+    }
 
-		//	guardar.setVisible(false);
-		//	btnGenerarGrafo.setVisible(true);
-		}
 		
 	
 }
