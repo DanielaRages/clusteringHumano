@@ -64,22 +64,25 @@ public class principal {
 		JLabel lblNewLabel = new JLabel("CLUSTERING HUMANO");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 32));
-		lblNewLabel.setBounds(115, 63, 350, 57);
+		lblNewLabel.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 33));
+		lblNewLabel.setBounds(97, 70, 376, 78);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Ingrese la cantidad de personas a cargar");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(171, 107, 273, 165);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblIngresar = new JLabel("Ingrese la cantidad de personas a ingresar");
+		lblIngresar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblIngresar.setBounds(171, 107, 273, 165);
+		frame.getContentPane().add(lblIngresar);
 		
 		cantidadPersonas = new JTextField();
 		cantidadPersonas.setHorizontalAlignment(SwingConstants.CENTER);
-		cantidadPersonas.setBounds(246, 235, 86, 20);
+		cantidadPersonas.setBounds(246, 241, 86, 20);
 		frame.getContentPane().add(cantidadPersonas);
 		cantidadPersonas.setColumns(10);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(246, 345, 89, 23);
+		frame.getContentPane().add(btnGuardar);
+		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -95,10 +98,6 @@ public class principal {
 				}
 			}
 		});
-		btnGuardar.setBackground(Color.WHITE);
-		btnGuardar.setContentAreaFilled(false);
-		btnGuardar.setBounds(246, 376, 89, 23);
-		frame.getContentPane().add(btnGuardar);
 	}
 	
 	public boolean validarInputCantidadPersonas() { 

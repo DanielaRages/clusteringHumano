@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import Logica.BFS;
 import Logica.Grafo;
 import Logica.Persona;
+import Interfaz.cargaDePersonas;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -43,11 +44,12 @@ public class gruposFormados extends JFrame {
 //----------------------------------------------------------------------------------------------------
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(680, 250, 600, 500);
+		setBounds(650, 250, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		JLabel lblGrupo1 = new JLabel("GRUPO 1");
 		lblGrupo1.setBackground(SystemColor.control);

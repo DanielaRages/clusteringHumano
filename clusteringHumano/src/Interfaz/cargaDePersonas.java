@@ -1,19 +1,10 @@
 package Interfaz;
 
-//ANOTACIONES:
-//CUANDO LOS DATOS LOS GUARDOS EN UNA TABLA, TENGO QUE IMPLEMENTAR TMB QUE ALMACENE ESO EN LA PARTE LOGICA (QUE CREE LA PERSONA)
-//CUANDO DE CLICK EN GUARDAR QUE RESETEE LOS DATOS --- ya está
-//HACER CONTADOR, CUANDO LLEGUE A LA CANTIDAD GUARDADA DESEADA, DESHABILITAR EL BOTON Y HABILITAR VER GRAFO
-//		ARREGLAR ESTO
-
 import Logica.Grafo;
 import Logica.Persona;
 import Logica.Prim;
 
 import java.lang.Object;
-import java.awt.EventQueue;
-
-import java.nio.charset.StandardCharsets;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -24,46 +15,39 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.Window;
 
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Color;
-
-
 
 @SuppressWarnings("serial")
 public class cargaDePersonas extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
-	JComboBox <String>comboBoxDeportes = new JComboBox<String>();
-	JComboBox <String>comboBoxMusica = new JComboBox<String>();
-	JComboBox <String>comboBoxEspectaculo = new JComboBox<String>();
-	JComboBox <String>comboBoxCiencia = new JComboBox<String>();
-	JButton btnGenerarGrafo = new JButton("Generar Grafo");
-	JButton btnGuardar = new JButton("Guardar"); 
+	JComboBox <String>comboBoxDeportes;
+	JComboBox <String>comboBoxMusica;
+	JComboBox <String>comboBoxEspectaculo;
+	JComboBox <String>comboBoxCiencia;
+	JButton btnGenerarGrafo;
+	JButton btnGuardar; 
 	String [] opciones;
 	Object [] datosFilas;
 	String nombre;
+	int contador;
 	int deporte;
 	int musica;
 	int espectaculo;
 	int ciencia;
-	private JTable table;
-	int contador;
 	private gruposFormados gruposFormados;
+	private JTable table;
 
 
 	public cargaDePersonas(Grafo grafo) {
@@ -74,41 +58,50 @@ public class cargaDePersonas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel = new JLabel("Ingrese nombre y apellido:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(38, 56, 167, 27);
-		contentPane.add(lblNewLabel);
+		comboBoxDeportes = new JComboBox<String>();
+		comboBoxMusica = new JComboBox<String>();
+		comboBoxEspectaculo = new JComboBox<String>();
+		comboBoxCiencia = new JComboBox<String>();
+		
+		btnGenerarGrafo = new JButton("Generar Grafo");
+		btnGuardar = new JButton("Guardar"); 
+		
+		JLabel lblNombreYAp = new JLabel("Ingrese nombre y apellido:");
+		lblNombreYAp.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNombreYAp.setBounds(38, 56, 204, 27);
+		contentPane.add(lblNombreYAp);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(220, 58, 247, 27);
+		textFieldNombre.setBounds(262, 58, 205, 27);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Seleccione un valor del 1 al 5 para las siguientes caracteristicas:");
+		JLabel lblNewLabel_1 = new JLabel("Seleccione un valor del 1 al 5 para las siguientes características:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(38, 108, 461, 40);
+		lblNewLabel_1.setBounds(38, 112, 394, 36);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Interes por los deportes:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2.setBounds(38, 168, 148, 27);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblIntDep = new JLabel("Interés por los deportes:");
+		lblIntDep.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblIntDep.setBounds(38, 168, 148, 27);
+		contentPane.add(lblIntDep);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Interes por la musica:");
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2_1.setBounds(38, 217, 148, 27);
-		contentPane.add(lblNewLabel_2_1);
+		JLabel lblIntMus = new JLabel("Interés por la música:");
+		lblIntMus.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblIntMus.setBounds(38, 217, 148, 27);
+		contentPane.add(lblIntMus);
 		
-		JLabel lblNewLabel_2_1_1 = new JLabel("Interes por las noticias del espectaculo:");
-		lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2_1_1.setBounds(38, 266, 220, 27);
-		contentPane.add(lblNewLabel_2_1_1);
+		JLabel lblIntEsp = new JLabel("Interés por las noticias del espectáculo:");
+		lblIntEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblIntEsp.setBounds(38, 263, 256, 27);
+		contentPane.add(lblIntEsp);
 		
-		JLabel lblNewLabel_2_1_2 = new JLabel("Interes por la ciencia:");
-		lblNewLabel_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2_1_2.setBounds(38, 318, 148, 27);
-		contentPane.add(lblNewLabel_2_1_2);
+		JLabel lblIntCien = new JLabel("Interés por la ciencia:");
+		lblIntCien.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblIntCien.setBounds(38, 315, 159, 27);
+		contentPane.add(lblIntCien);
 		
 		String [] opciones = new String[] {"1", "2", "3", "4", "5"};
 		comboBoxDeportes.setBounds(426, 171, 41, 22);
@@ -136,13 +129,11 @@ public class cargaDePersonas extends JFrame {
 				grafo.GenerarGrafo();
 				Prim arbolG = new Prim(grafo);
 				Grafo nuevoGrafo = arbolG.ArmarArbol(arbolG.ListaAristas(grafo));
-				
 				gruposFormados = new gruposFormados(nuevoGrafo);
 				gruposFormados.setVisible(true);
 			}
 		});
 			
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(498, 56, 514, 302);
 		contentPane.add(scrollPane);
@@ -150,14 +141,14 @@ public class cargaDePersonas extends JFrame {
 		table = new JTable(); //-------------------- TABLA
 		table.setRowSelectionAllowed(false);
 		scrollPane.setViewportView(table);
-		table.getTableHeader().setReorderingAllowed(false) ; //desabilitar mover columnas
+		table.getTableHeader().setReorderingAllowed(false) ; //desabilita mover columnas
 		
 		DefaultTableModel modelo = new DefaultTableModel();
 		
 		modelo.addColumn("Nombre");
 		modelo.addColumn("Deportes");
-		modelo.addColumn("Musica");
-		modelo.addColumn("Espectaculo");
+		modelo.addColumn("Música");
+		modelo.addColumn("Espectáculo");
 		modelo.addColumn("Ciencia");
 		
 		table.setModel(modelo);
@@ -181,6 +172,10 @@ public class cargaDePersonas extends JFrame {
                         btnGuardar.setVisible(false);
                         btnGenerarGrafo.setVisible(true);
                         textFieldNombre.setEditable(false);
+                        comboBoxDeportes.setEnabled(false);
+                    	comboBoxMusica.setEnabled(false);
+                    	comboBoxEspectaculo.setEnabled(false);
+                    	comboBoxCiencia.setEnabled(false);
                     }
                 }
             }
@@ -208,7 +203,7 @@ public class cargaDePersonas extends JFrame {
 			modelo.addRow(datosFilas);		
 		}
 		
-		private void limpiarDatos() { //limpia los datos por afuera cada vez que se da al boton de guardar
+		private void limpiarDatos() { //limpia los datos por fuera cada vez que se da al boton de guardar
 			textFieldNombre.setText("");
 			comboBoxDeportes.setSelectedIndex(0);
 			comboBoxMusica.setSelectedIndex(0);
