@@ -114,7 +114,7 @@ public class Grafo
     }
 	
 	
-	public void eliminarAristaMax() 
+	public void eliminarAristaMax() //si todas las aristas tienen el mismo peso, elimina la 1ra union que encuentra
 	{
 		int aristaMax = -1;
 		aristaEliminar = null;
@@ -128,13 +128,10 @@ public class Grafo
 		eliminarArista(aristaEliminar.getPersona1(),aristaEliminar.getPersona2());	
 	}
 	
-	public int tamanio() 
-	{
+	public int tamanio() {
 		return listaVertices.size();
 	}
-	
-	
-
+		
 	public ArrayList<Persona> getListaVertices() {
 		return listaVertices;
 	}
