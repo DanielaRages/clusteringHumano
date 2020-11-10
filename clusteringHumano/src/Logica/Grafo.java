@@ -116,19 +116,16 @@ public class Grafo
 	
 	public void eliminarAristaMax() 
 	{
-		int aristaMax = 0;
+		int aristaMax = -1;
 		aristaEliminar = null;
 		for (int i = 0; i < aristas.size(); i++) {
-			if(aristas.get(i).getPeso()>aristaMax) 
+			if(aristas.get(i).getPeso()> aristaMax || aristaMax == -1) 
 			{
 				aristaMax = aristas.get(i).getPeso();
 				aristaEliminar = aristas.get(i);
-			}
-			
+			}	
 		} 
-		eliminarArista(aristaEliminar.getPersona1(),aristaEliminar.getPersona2());
-		
-		
+		eliminarArista(aristaEliminar.getPersona1(),aristaEliminar.getPersona2());	
 	}
 	
 	public int tamanio() 

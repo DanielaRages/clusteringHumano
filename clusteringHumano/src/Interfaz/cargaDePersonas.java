@@ -210,9 +210,6 @@ public class cargaDePersonas extends JFrame {
 						btnGenerarGrafo.setVisible(true);						
 						}
 				}
-				
-				
-				
 		}
 		});
 		
@@ -230,7 +227,7 @@ public class cargaDePersonas extends JFrame {
 		}
 
 		
-		private void cargarTabla(JTable tabla, DefaultTableModel modelo) {
+		private void cargarTabla(DefaultTableModel modelo) {
 			
 			datosFilas = new Object[5]; 
 			datosFilas[0] = textFieldNombre.getText();
@@ -263,7 +260,7 @@ public class cargaDePersonas extends JFrame {
 		private void cargaPersonasAGrafo(DefaultTableModel modelo, Grafo grafo, JButton guardar, JButton btnGenerarGrafo) {
 				Persona p = new Persona(nombre, deporte, musica, espectaculo, ciencia); 	
 				grafo.agregarPersona(p);
-				cargarTabla(table, modelo);
+				cargarTabla(modelo);
 				limpiarDatos();
 
 		//	guardar.setVisible(false);

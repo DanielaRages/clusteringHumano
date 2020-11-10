@@ -32,10 +32,11 @@ public class gruposFormados extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaGrupo1;
 	private JTable tablaGrupo2;
-	private ArrayList<Persona> grupo1;
-	private ArrayList<Persona> grupo2;
-
-
+	ArrayList<Persona> ListaPersonas1;
+	ArrayList<Persona> ListaPersonas2;
+	Object [] datosFinalesLista1;
+	Object [] datosFinalesLista2;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -62,10 +63,11 @@ public class gruposFormados extends JFrame {
 		nuevoGrafo.eliminarAristaMax();
 		Set<Integer> grupo1 = BFS.alcanzables(nuevoGrafo, nuevoGrafo.posPersona(nuevoGrafo.getAristaEliminar().getPersona1()));
 		Set<Integer> grupo2 = BFS.alcanzables(nuevoGrafo, nuevoGrafo.posPersona(nuevoGrafo.getAristaEliminar().getPersona2()));
-		ArrayList<Persona> ListaPersonas1 = nuevoGrafo.listaPersonas(grupo1);
-		ArrayList<Persona> ListaPersonas2 = nuevoGrafo.listaPersonas(grupo2);
 		
-//		nuevoGrafo.eliminarAristaMax();
+		ListaPersonas1 = nuevoGrafo.listaPersonas(grupo1);
+		ListaPersonas2 = nuevoGrafo.listaPersonas(grupo2);
+		
+
 		
 //----------------------------------------------------------------------------------------------------
 		
@@ -103,12 +105,48 @@ public class gruposFormados extends JFrame {
 		tablaGrupo1.setBounds(10, 76, 280, 374);
 		contentPane.add(tablaGrupo1);
 		
-		DefaultTableModel modelo = new DefaultTableModel();
+		tablaGrupo2 = new JTable();
+		tablaGrupo2.setBounds(296, 81, 288, 374);
+		contentPane.add(tablaGrupo2);
+
+		DefaultTableModel modeloTabla1 = new DefaultTableModel();
+		//.addRow(datosFinalesLista1);
+		//tablaGrupo1.setModel(modeloTabla1);
+		
+		DefaultTableModel modeloTabla2 = new DefaultTableModel();
+		modeloTabla2.addRow(datosFinalesLista2);
+		tablaGrupo2.setModel(modeloTabla2);
+		
+		imprimirDatos(ListaPersonas1, ListaPersonas2, modeloTabla1, modeloTabla2);
+		
+		//DefaultTableModel modeloTabla1 = new DefaultTableModel();
 		//modelo.addRow(rowData); //añadir aca de forma horizontal los nombres de los grupos (para eso tendria que tener un array de object con los nombres)
 		//tablaGrupo1.setModel(modelo);
+	}
+	
+	private void imprimirDatos(ArrayList<Persona> p1, ArrayList<Persona> p2, DefaultTableModel modeloTabla1, DefaultTableModel modeloTabla2  ) {
+		datosFinalesLista1 = new Object [1];
+		datosFinalesLista2 = new Object[1];
+		for (Persona p : p1) 
+			//modeloTabla1(p.getNombre().toString());
+		//	for (int i = 0; i < datosFinalesLista1.length; i++) {
+				//modeloTabla1.add(p.getNombre().toString());
+				datosFinalesLista1[0] = p.getNombre();	
+				//modeloTabla1.addColumn(datosFinalesLista1);
+				//modeloTabla1.addRow(datosFinalesLista1[i]);
+				//modeloTabla1.addColumn(datosFinalesLista1);
+				System.out.println("nombres l1: " + datosFinalesLista1[0]);
+		//	}
+			//	modeloTabla1.addColumn(datosFinalesLista1);
+				modeloTabla1.addRow(datosFinalesLista1);
+				tablaGrupo1.setModel(modeloTabla1);
 		
-		tablaGrupo2 = new JTable();
-		tablaGrupo2.setBounds(296, 76, 280, 374);
-		contentPane.add(tablaGrupo2);
+		for (Persona p: p2) 
+				datosFinalesLista2[0] = p.getNombre();	
+				System.out.println("nombres l2: " + datosFinalesLista2[0]);
+		
+			//	modeloTabla1.addColumn(datosFinalesLista2);
+				modeloTabla2.addRow(datosFinalesLista2);
+				tablaGrupo2.setModel(modeloTabla2);
 	}
 }
