@@ -20,8 +20,8 @@ public class Arista {
 			   }
 	    	Arista otro = (Arista) obj;
 	    	
-	    	if		(this.getPersona1() == otro.getPersona1() &&
-	    			this.getPersona2() == otro.getPersona2() &&
+	    	if		(this.getPersona1().equals(otro.getPersona1()) &&
+	    			this.getPersona2().equals(otro.getPersona2()) &&
 	    			this.getPeso() == otro.getPeso()) 	   
 	    		{
 	    		return true;

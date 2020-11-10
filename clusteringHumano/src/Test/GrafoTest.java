@@ -2,12 +2,15 @@ package Test;
 
 import static org.junit.Assert.*;
 
+
 import java.util.Set;
 
 import org.junit.Test;
 
+
 import Logica.Grafo;
 import Logica.Persona;
+
 
 public class GrafoTest {
 	
@@ -162,9 +165,11 @@ public class GrafoTest {
 		grafo.agregarPersona(p3);
 		grafo.GenerarGrafo();
 		grafo.eliminarAristaMax();
-		assertTrue( grafo.existeArista(p2, p3) );
+		
+		assertFalse( grafo.existeArista(p1, p2));
 		
 	}
+	
 	
 	@Test
 	public void tamanioTest() 

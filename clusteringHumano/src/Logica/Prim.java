@@ -2,35 +2,50 @@ package Logica;
 
 import java.util.ArrayList;
 
+
 public class Prim {
 	
 	private Grafo grafoNuevo; // grafo nuevo con aristas < a el tamanio de grafo
 	private ArrayList<Persona> vertices;
-	//private ArrayList<Aristas> aristas; La comente porque no lo uso. Mas tarde lo vemos y nos fijamos si esta bien o no :3
+	private ArrayList<Arista> aristas;// La comente porque no lo uso. Mas tarde lo vemos y nos fijamos si esta bien o no :3
 	
 	
 	public Prim(Grafo g) 
 	{
 		grafoNuevo = new Grafo(g.tamanio());
 		vertices = new ArrayList<>();
-		//aristas = new ArrayList<>();
+		aristas = new ArrayList<>();
 		vertices.add(g.getListaVertices().get(0));
+		
 	}
 	
-	public Grafo generarArbolMin(Grafo g) 
+	public ArrayList<Arista> ListaAristas(Grafo g) 
 	{
-		int i = 0;
-		while(i < g.tamanio()-1 ) 
+		int i = 1;
+		
+		
+		while(i < g.tamanio() ) 
 		{
 			Arista aristaNueva = aristasMenorPeso(g);
-			//vertices.add(aristaNueva.getPersona2());
-			grafoNuevo.agregarArista(aristaNueva.getPersona1(), aristaNueva.getPersona2());
 			vertices.add(aristaNueva.getPersona2());
-			
+			aristas.add(aristaNueva);
+			i++;
+		}
+		
+		return aristas;
+		
+	}
+	
+	public Grafo ArmarArbol(ArrayList<Arista> lista) 
+	{
+		for (int i = 0; i < grafoNuevo.getVertices(); i++) {
+			grafoNuevo.agregarPersona(vertices.get(i));
+		}
+		for (int i = 0; i < lista.size(); i++) {
+			grafoNuevo.agregarArista(aristas.get(i).getPersona1(),aristas.get(i).getPersona2());
 		}
 		
 		return grafoNuevo;
-		
 	}
 
 	
@@ -60,8 +75,9 @@ public class Prim {
 		
 	}
 	
+	
+	
 
 	
 
 }
-
