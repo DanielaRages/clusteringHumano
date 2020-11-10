@@ -61,10 +61,10 @@ public class Prim {
 				{
 					if(vertices.get(i).calcularSimilaridad(g.getListaVertices().get(j)) < peso || peso == -1) 
 					{
-						//peso = vertices.get(i).calcularSimilaridad(g.getVertices().get(j)); Esto lo puedo calcular antes o cuando creo la arista 
-						aristaNueva = new Arista(vertices.get(i),g.getListaVertices().get(j)); // ya tengo el peso calculado por eso creo la arista y
-						peso = aristaNueva.getPeso();									   // abajo solo tengo que pasarle a peso lo que tiene la 
-					}																	   // nueva arista creada
+						 
+						aristaNueva = new Arista(vertices.get(i),g.getListaVertices().get(j)); 
+						peso = aristaNueva.getPeso();									    
+					}																	   
 				}
 				
 			}

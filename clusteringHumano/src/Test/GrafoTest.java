@@ -159,6 +159,7 @@ public class GrafoTest {
 	@Test
 	public void eliminarAristaMaxTest() 
 	{
+		
 		Grafo grafo = new Grafo(3);
 		grafo.agregarPersona(p1);
 		grafo.agregarPersona(p2);
@@ -214,6 +215,8 @@ public class GrafoTest {
 		
 		Assert.iguales(esperado, alcanzables);
 	}
+	
+	
 
 		
 

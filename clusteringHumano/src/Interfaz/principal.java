@@ -22,7 +22,7 @@ public class principal {
 	private JFrame frame;
 	private JTextField cantidadPersonas;
 	private cargaDePersonas carga;
-	static Grafo grafo; 
+	 
 
 	/**
 	 * Launch the application.
@@ -81,7 +81,7 @@ public class principal {
 			@Override
 			public void mouseClicked(MouseEvent e) {		
 				if(validarInputCantidadPersonas()) {
-					grafo = new Grafo(getCantidadPersonas()); //le asigna la cantidad de personas
+					Grafo grafo = new Grafo(getCantidadPersonas()); //le asigna la cantidad de personas
 					carga = new cargaDePersonas(grafo); 
 					carga.setVisible(true);
 					frame.setVisible(false);

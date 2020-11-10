@@ -8,7 +8,7 @@ package Interfaz;
 
 import Logica.Grafo;
 import Logica.Persona;
-
+import Logica.Prim;
 
 import java.lang.Object;
 import java.awt.EventQueue;
@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JTextField;
@@ -157,7 +158,13 @@ public class cargaDePersonas extends JFrame {
 		btnGenerarGrafo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			//	gruposFormados = new gruposFormados(grafo);
+				
+				grafo.GenerarGrafo();
+				Prim arbolG = new Prim(grafo);
+				Grafo nuevoGrafo = arbolG.ArmarArbol(arbolG.ListaAristas(grafo));
+				
+				gruposFormados = new gruposFormados(nuevoGrafo);
+				gruposFormados.setVisible(true);
 			}
 		});
 		
@@ -203,7 +210,9 @@ public class cargaDePersonas extends JFrame {
 						btnGenerarGrafo.setVisible(true);						
 						}
 				}
-				grafo.GenerarGrafo();
+				
+				
+				
 		}
 		});
 		
@@ -217,8 +226,7 @@ public class cargaDePersonas extends JFrame {
 			musica = Integer.parseInt((String)comboBoxMusica.getSelectedItem());
 			espectaculo = Integer.parseInt((String)comboBoxEspectaculo.getSelectedItem());
 			ciencia = Integer.parseInt((String)comboBoxCiencia.getSelectedItem());
-			System.out.println(nombre);
-			System.out.println(deporte); 	
+			 	
 		}
 
 		

@@ -193,6 +193,17 @@ public class Grafo
 		}
 		return ret;
 	}
+	
+	public ArrayList<Persona> listaPersonas(Set<Integer> listaPos)
+	{
+		ArrayList<Persona> ret = new ArrayList<>();
+		for(Integer p1 : listaPos) {
+			
+			ret.add(listaVertices.get(p1));
+		}
+		return ret;
+	}
+	
 
 
 	

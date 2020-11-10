@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logica.Arista;
 import Logica.BFS;
 import Logica.Grafo;
 import Logica.Persona;
@@ -33,9 +34,7 @@ public class gruposFormados extends JFrame {
 	private JTable tablaGrupo2;
 	private ArrayList<Persona> grupo1;
 	private ArrayList<Persona> grupo2;
-	Prim arbolG;
-	Grafo nuevoGrafo;
-	BFS bfs;
+
 
 	/**
 	 * Launch the application.
@@ -59,11 +58,14 @@ public class gruposFormados extends JFrame {
 	public gruposFormados(Grafo grafo) {
 		
 		//Se genera Arbol Generador Minimo
-		
-		bfs = new BFS();
-		arbolG = new Prim(grafo);	
-		nuevoGrafo = arbolG.ArmarArbol(arbolG.ListaAristas(grafo));
+		Grafo nuevoGrafo = grafo;
 		nuevoGrafo.eliminarAristaMax();
+		Set<Integer> grupo1 = BFS.alcanzables(nuevoGrafo, nuevoGrafo.posPersona(nuevoGrafo.getAristaEliminar().getPersona1()));
+		Set<Integer> grupo2 = BFS.alcanzables(nuevoGrafo, nuevoGrafo.posPersona(nuevoGrafo.getAristaEliminar().getPersona2()));
+		ArrayList<Persona> ListaPersonas1 = nuevoGrafo.listaPersonas(grupo1);
+		ArrayList<Persona> ListaPersonas2 = nuevoGrafo.listaPersonas(grupo2);
+		
+//		nuevoGrafo.eliminarAristaMax();
 		
 //----------------------------------------------------------------------------------------------------
 		
