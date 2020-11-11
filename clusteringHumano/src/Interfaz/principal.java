@@ -1,77 +1,48 @@
 package Interfaz;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import Logica.Grafo;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class principal {
 
+	//VARIABLES
 	private JFrame frame;
 	private JTextField cantidadPersonas;
 	private cargaDePersonas carga;
 	 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					principal window = new principal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
+	//CONSTRUYE LA VENTANA
 	public principal() {
 		initialize();
 		
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	//INICIALIZA LOS CONTENIDOS DEL FRAME
 	private void initialize() {
 		
 		frame = new JFrame();
-		
-		frame.setBounds(680, 250, 600, 500);
+		frame.setBounds(470, 190, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("CLUSTERING HUMANO");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 33));
-		lblNewLabel.setBounds(97, 70, 376, 78);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel tituloFrame = new JLabel("CLUSTERING HUMANO");
+		tituloFrame.setVerticalAlignment(SwingConstants.TOP);
+		tituloFrame.setHorizontalAlignment(SwingConstants.CENTER);
+		tituloFrame.setFont(new Font("Adobe Gothic Std B", Font.PLAIN, 33));
+		tituloFrame.setBounds(97, 70, 376, 78);
+		frame.getContentPane().add(tituloFrame);
 		
-		JLabel lblIngresar = new JLabel("Ingrese la cantidad de personas a ingresar");
-		lblIngresar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblIngresar.setBounds(171, 107, 273, 165);
-		frame.getContentPane().add(lblIngresar);
+		JLabel ingresarCant = new JLabel("Ingrese la cantidad de personas a ingresar");
+		ingresarCant.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		ingresarCant.setBounds(171, 107, 273, 165);
+		frame.getContentPane().add(ingresarCant);
 		
 		cantidadPersonas = new JTextField();
 		cantidadPersonas.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,16 +53,12 @@ public class principal {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(246, 345, 89, 23);
 		frame.getContentPane().add(btnGuardar);
-		
-		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+	
 		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {		
 				if(validarInputCantidadPersonas()) {
-					Grafo grafo = new Grafo(getCantidadPersonas()); //le asigna la cantidad de personas
+					Grafo grafo = new Grafo(getCantidadPersonas()); //ASIGNA UNA CANTIDAD DE PERSONAS A ALMACENAR
 					carga = new cargaDePersonas(grafo); 
 					carga.setVisible(true);
 					frame.setVisible(false);
@@ -100,6 +67,7 @@ public class principal {
 		});
 	}
 	
+	//VERIFICA QUE LA ENTRADA NO SEA VACÍA O LETRAS.
 	public boolean validarInputCantidadPersonas() { 
 
 		if (cantidadPersonas.getText().equals("")) {
@@ -119,13 +87,15 @@ public class principal {
 				return false;
 			}
 		}
-		
 		return true;	
 	}
 
+	//GETTERS
 	public int getCantidadPersonas() {
 		int cant = Integer.parseInt(cantidadPersonas.getText());
 		return cant;
 	}
+	
+	public JFrame getFrame() {return frame;}
 }
 

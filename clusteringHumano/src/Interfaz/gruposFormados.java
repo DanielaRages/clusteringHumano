@@ -3,12 +3,9 @@ package Interfaz;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Logica.BFS;
 import Logica.Grafo;
 import Logica.Persona;
-import Interfaz.cargaDePersonas;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -24,14 +21,15 @@ import java.awt.SystemColor;
 @SuppressWarnings("serial")
 public class gruposFormados extends JFrame {
 
+	//VARIABLES
 	private JPanel contentPane;
 	ArrayList<Persona> ListaPersonas1;
 	ArrayList<Persona> ListaPersonas2;
 
-
+	//CONSTRUYE LOS GRUPOS
 	public gruposFormados(Grafo grafo) {
 		
-		//Se genera Arbol Generador Minimo
+		//SE CREA EL ÁRBOL GENERADOR MÍNIMO
 		Grafo nuevoGrafo = grafo;
 		nuevoGrafo.eliminarAristaMax();
 		Set<Integer> grupo1 = BFS.alcanzables(nuevoGrafo, nuevoGrafo.posPersona(nuevoGrafo.getAristaEliminar().getPersona1()));
@@ -40,11 +38,8 @@ public class gruposFormados extends JFrame {
 		ListaPersonas1 = nuevoGrafo.listaPersonas(grupo1);
 		ListaPersonas2 = nuevoGrafo.listaPersonas(grupo2);
 		
-		
-//----------------------------------------------------------------------------------------------------
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(650, 250, 600, 500);
+		setBounds(450, 160, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -64,18 +59,18 @@ public class gruposFormados extends JFrame {
 		lblGrupo2.setBounds(345, 16, 159, 41);
 		contentPane.add(lblGrupo2);
 		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setForeground(Color.BLACK);
-		separator.setBounds(296, 0, 2, 461);
-		contentPane.add(separator);
+		JSeparator separadorVertical = new JSeparator();
+		separadorVertical.setOrientation(SwingConstants.VERTICAL);
+		separadorVertical.setForeground(Color.BLACK);
+		separadorVertical.setBounds(296, 0, 2, 461);
+		contentPane.add(separadorVertical);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(0, 68, 584, 2);
-		contentPane.add(separator_1);
+		JSeparator separadorHorizontal = new JSeparator();
+		separadorHorizontal.setForeground(Color.BLACK);
+		separadorHorizontal.setBounds(0, 68, 584, 2);
+		contentPane.add(separadorHorizontal);
 		
-		JList<String> lista1 = new JList<String>(); //Lista para grupo 1
+		JList<String> lista1 = new JList<String>(); //LISTA GRUPO 1
 		lista1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lista1.setBackground(UIManager.getColor("Button.background"));
 		lista1.setBounds(23, 95, 240, 344);
@@ -83,7 +78,7 @@ public class gruposFormados extends JFrame {
 		contentPane.add(lista1);
 		lista1.setModel(modelList(ListaPersonas1));
 		
-		JList<String> lista2 = new JList<String>(); //Lista para grupo 2
+		JList<String> lista2 = new JList<String>(); //LISTA GRUPO2
 		lista2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lista2.setBackground(UIManager.getColor("Button.background"));
 		lista2.setBounds(308, 95, 266, 344);
@@ -92,6 +87,7 @@ public class gruposFormados extends JFrame {
 		lista2.setModel(modelList(ListaPersonas2));
 	}
 	
+	//DEVUELVE UN ARREGLO CON LOS NOMBRES DE LOS INTEGRANTES DE LOS GRUPOS
 	private DefaultListModel <String> modelList (ArrayList<Persona> array){
 		 DefaultListModel <String> model = new DefaultListModel<>();
 		 for (Persona p: array) {
